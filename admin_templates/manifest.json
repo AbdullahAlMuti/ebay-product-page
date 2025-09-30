@@ -1,0 +1,7 @@
+{
+  "templates": [
+    { "name": "Admin: Smart Cupping Massager", "file": "admin_templates/template.html" },
+    { "name": "Admin: Hello World", "file": "admin_templates/template2.html" }
+  ]
+}
+

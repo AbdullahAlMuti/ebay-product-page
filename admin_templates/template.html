@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Smart Cupping Massager – Improve blood flow, release toxins, prevent injuries, and easy to use. Compact and user-friendly.">
+<title>Smart Cupping Massager</title>
+<style>
+:root {
+    --green-50: #f0fdf4;
+    --green-100: #dcfce7;
+    --green-200: #bbf7d0;
+    --green-300: #86efac;
+    --green-400: #4ade80;
+    --green-500: #22c55e;
+    --green-600: #16a34a;
+    --green-700: #15803d;
+    --green-800: #166534;
+    --green-900: #14532d;
+    --text-900: #111827;
+    --text-700: #374151;
+    --bg-page: #f7fdf9;
+    --bg-card: #ffffff;
+    --shadow-soft: 0 4px 14px rgba(0,0,0,0.06);
+    --radius-lg: 12px;
+    --radius-md: 10px;
+}
+* {
+    box-sizing: border-box;
+}
+html { font-size: clamp(15px, 1.1vw, 16px); }
+img { max-width: 100%; height: auto; display: block; }
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-page);
+    color: var(--text-900);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.order-status-slim {
+    background: var(--bg-card);
+    padding: 10px 0;
+    font-family: Arial, sans-serif;
+    border-bottom: 1px solid var(--green-100);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+.order-status-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 clamp(16px, 2vw, 24px);
+}
+.status-flow {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+    gap: clamp(10px, 2vw, 16px);
+    width: 100%;
+    margin: 0 auto;
+    padding: 8px 0;
+    --railInset: 0px;
+}
+.status-inline { margin-top: 10px; }
+.status-flow::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 4px;
+    background: var(--green-100);
+    transform: translateY(-50%);
+    border-radius: 999px;
+}
+.status-flow::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--green-300), var(--green-500));
+    transform: translateY(-50%) scaleX(1);
+    transform-origin: left center;
+    border-radius: 999px;
+}
+.status-item {
+    position: relative;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    gap: 6px;
+    opacity: 1;
+}
+.status-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    background: var(--bg-card);
+    border: 2px solid var(--green-300);
+    color: var(--green-800);
+    font-size: 18px;
+    box-shadow: var(--shadow-soft);
+    z-index: 1;
+}
+.status-label { font-size: 12px; font-weight: 700; color: var(--green-800); }
+
+/* No animations – static compliant display */
+
+/* removed all @keyframes to comply with eBay active content policy */
+
+@media (max-width: 640px) {
+    .status-icon { width: 32px; height: 32px; font-size: 16px; }
+    .status-label { font-size: 10px; }
+    .status-flow::before, .status-flow::after { height: 3px; left: 8%; right: 8%; }
+}
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+}
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: clamp(16px, 2vw, 24px);
+}
+/* Hero with product image and collapsible rows */
+.hero-faq {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 24px;
+    align-items: center;
+    margin: 16px 0 8px 0;
+}
+.hero-image img {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    display: block;
+}
+.hero-info { display: grid; gap: 16px; }
+.hero-title { margin: 0; color: var(--green-900); font-weight: 800; font-size: clamp(20px, 3.4vw, 28px); }
+.usp-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+.usp {
+    display: grid;
+    place-items: center;
+    text-align: center;
+    background: var(--bg-card);
+    border: 1px solid var(--green-100);
+    border-radius: var(--radius-md);
+    padding: 12px 8px;
+    box-shadow: var(--shadow-soft);
+}
+.usp .icon { font-size: 22px; color: var(--green-700); }
+.usp .text { font-weight: 700; font-size: 12px; color: var(--green-800); }
+.key-points { list-style: none; padding: 0; margin: 4px 0 6px 0; display: grid; gap: 6px; }
+.key-points li { display: flex; align-items: center; gap: 8px; color: var(--text-900); font-weight: 700; }
+.key-points .kp-icon { color: var(--green-700); }
+.accordion { display: grid; gap: 8px; }
+.accordion details {
+    border: 1px solid var(--green-100);
+    border-radius: var(--radius-md);
+    background: var(--bg-card);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.accordion summary {
+    cursor: pointer;
+    list-style: none;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    font-weight: 700;
+    color: var(--green-800);
+    user-select: none;
+    min-height: 48px;
+}
+.accordion summary::-webkit-details-marker { display: none; }
+.accordion .qicon { font-size: 18px; color: var(--green-600); }
+.accordion summary::after {
+    content: "▾";
+    color: var(--green-700);
+    transition: transform 0.2s ease;
+}
+.accordion details[open] summary::after { transform: rotate(180deg); }
+.accordion .content {
+    padding: 0 14px 0 42px;
+    color: var(--text-700);
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin-top: 0;
+    transform: translateY(-4px);
+    transition: max-height 0.35s ease, opacity 0.3s ease, margin-top 0.35s ease, transform 0.35s ease, padding-bottom 0.35s ease;
+}
+.accordion details[open] .content {
+    max-height: 600px;
+    opacity: 1;
+    margin-top: 8px;
+    transform: translateY(0);
+    padding-bottom: 12px;
+}
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.flex .column {
+    flex: 1;
+    min-width: 250px;
+}
+h2, h3 {
+    color: var(--green-800);
+}
+.feature {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+.feature-icon {
+    color: var(--green-600);
+    font-size: 20px;
+    margin-right: 10px;
+    line-height: 1.2;
+}
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 10px;
+}
+.table-comparison {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: var(--bg-card);
+    box-shadow: var(--shadow-soft);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+.table-comparison th, .table-comparison td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+.table-comparison th {
+    background-color: var(--green-600);
+    color: white;
+}
+.table-comparison td.checked::after {
+    content: "✔";
+    color: var(--green-600);
+    font-weight: bold;
+}
+.table-comparison td.unchecked::after {
+    content: "✖";
+    color: #ef4444;
+    font-weight: bold;
+}
+.benefits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 15px;
+}
+.benefit-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: 15px;
+    flex: 1;
+    min-width: 220px;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--green-100);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.benefit-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    border-color: var(--green-200);
+}
+.benefit-icon {
+    font-size: 30px;
+    margin-bottom: 10px;
+    color: var(--green-600);
+}
+img.product-image {
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: var(--shadow-soft);
+}
+/* Description section with centered image and corner callouts */
+.desc-section {
+    margin-top: 32px;
+    background: linear-gradient(180deg, var(--green-50), transparent);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+}
+.callout-grid {
+    display: grid;
+    grid-template-columns: 1fr minmax(260px, 520px) 1fr;
+    grid-template-areas:
+        "tl image tr"
+        "bl image br";
+    gap: 20px 24px;
+    align-items: center;
+}
+.desc-image { grid-area: image; justify-self: center; }
+.desc-image img {
+    width: 100%;
+    max-width: 520px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+}
+.callout { 
+    background: var(--bg-card); 
+    border: 1px solid var(--green-100); 
+    border-radius: var(--radius-md); 
+    padding: 12px 14px; 
+    box-shadow: var(--shadow-soft);
+}
+.callout.left { justify-self: end; text-align: right; }
+.callout.right { justify-self: start; text-align: left; }
+.callout .title { display: flex; align-items: center; gap: 8px; color: var(--green-800); font-weight: bold; margin-bottom: 6px; }
+.callout .icon { color: var(--green-600); font-size: 18px; }
+.callout p { margin: 0; color: var(--text-700); font-size: 0.95rem; }
+.callout.tl { grid-area: tl; }
+.callout.tr { grid-area: tr; }
+.callout.bl { grid-area: bl; }
+.callout.br { grid-area: br; }
+@media(max-width:900px){
+    .hero-faq { grid-template-columns: 1fr; }
+    .hero-image { order: 1; }
+    .hero-info { order: 2; }
+    .callout-grid {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "tl"
+            "tr"
+            "image"
+            "bl"
+            "br";
+    }
+    .callout.left, .callout.right { justify-self: stretch; text-align: left; width: 100%; }
+}
+@media(max-width:768px){
+    .flex { flex-direction: column; }
+    .container { padding: 16px; }
+    .table-comparison th, .table-comparison td { padding: 12px 8px; font-size: 14px; }
+    .benefit-card { min-width: 180px; }
+}
+@media(max-width:480px){
+    h2, h3 { font-size: 1.1rem; }
+    .feature { margin-bottom: 12px; }
+}
+</style>
+</head>
+<body>
+<!-- Removed top order status per request -->
+
+<div class="container">
+
+    <!-- Hero: Product Image + Collapsible Rows + USPs -->
+    <section class="hero-faq">
+        <div class="hero-image">
+            <img src="Main Image.png" alt="Smart Cupping Massager main">
+        </div>
+        <div class="hero-info">
+            <h2 class="hero-title">Smart Cupping Massager</h2>
+            <div class="usp-row">
+                <div class="usp">
+                    <div class="icon">📦</div>
+                    <div class="text">Tracked Insured Shipping</div>
+                </div>
+                <div class="usp">
+                    <div class="icon">😊</div>
+                    <div class="text">Try Risk‑Free for 90 Days</div>
+                </div>
+                <div class="usp">
+                    <div class="icon">🎧</div>
+                    <div class="text">24/7 Customer Support</div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <ul class="key-points">
+                    <li><span class="kp-icon">✔️</span>360° Full‑Leg Relief</li>
+                    <li><span class="kp-icon">🧩</span>Personalized Recovery</li>
+                    <li><span class="kp-icon">🕒</span>Fast Relief in Minutes</li>
+                    <li><span class="kp-icon">🏡</span>Relax Anytime, Anywhere</li>
+                </ul>
+                <details>
+                    <summary><span class="qicon">🛡️</span>Is this safe to use every day?</summary>
+                    <div class="content">Yes, it’s designed for regular use. Start with shorter sessions and increase as desired.</div>
+                </details>
+                <details>
+                    <summary><span class="qicon">🚚</span>Shipping & Delivery</summary>
+                    <div class="content">Orders ship with tracking in 24–48 hours. Typical delivery: 5–9 business days.</div>
+                </details>
+                <details>
+                    <summary><span class="qicon">↩️</span>Return & Refund Policy</summary>
+                    <div class="content">Enjoy a 90‑day risk‑free trial. If you’re not satisfied, return for a full refund.</div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Inline Order Status below accordion, outside of it -->
+    <div class="status-inline">
+        <div class="status-flow">
+            <div class="status-item" data-status="packing">
+                <span class="status-icon">📦</span>
+                <span class="status-label">Packing</span>
+            </div>
+            <div class="status-item" data-status="shipped">
+                <span class="status-icon">🚚</span>
+                <span class="status-label">Shipped</span>
+            </div>
+            <div class="status-item" data-status="transit">
+                <span class="status-icon">✈️</span>
+                <span class="status-label">In Transit</span>
+            </div>
+            <div class="status-item" data-status="delivered">
+                <span class="status-icon">✅</span>
+                <span class="status-label">Delivered</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="flex">
+        <div class="column">
+            <div class="feature"><div class="feature-icon">✔</div><div><strong>Increase blood flow</strong><br>Enhance your body's circulation effortlessly with our Smart Cupping Massager, promoting healthier blood flow.</div></div>
+            <div class="feature"><div class="feature-icon">✔</div><div><strong>Prevent injuries</strong><br>Safeguard your health and minimize inflammation with our innovative Smart Cupping Massager.</div></div>
+        </div>
+        <div class="column">
+            <div class="feature"><div class="feature-icon">✔</div><div><strong>Release toxins</strong><br>Detoxify your body with ease, as our Smart Cupping Massager gently releases accumulated toxins.</div></div>
+            <div class="feature"><div class="feature-icon">✔</div><div><strong>Easy to use</strong><br>Experience the convenience of wellness anywhere with our compact and user-friendly Smart Cupping Massager.</div></div>
+        </div>
+        <div class="column">
+            <img src="Main Image.png" alt="Smart Cupping Massager" class="product-image">
+        </div>
+    </div>
+
+    <!-- Comparison Table -->
+    <h3>Unmatched Benefits</h3>
+    <p>Cupping is a time-tested therapy method with amazing benefits, but it’s time for an upgrade. We combined this powerful mode of therapy with several modern modules while providing the user convenient access to its remarkable benefits, anytime, with ease.</p>
+    <div class="table-wrapper">
+    <table class="table-comparison">
+        <tr>
+            <th>SELF APPLICATION</th>
+            <th>1 YEAR WARRANTY</th>
+            <th>FAST & EFFICIENT</th>
+            <th>COST $$$</th>
+        </tr>
+        <tr>
+            <td class="checked"></td>
+            <td class="checked"></td>
+            <td class="checked"></td>
+            <td class="unchecked"></td>
+        </tr>
+        <tr>
+            <td class="unchecked">Others</td>
+            <td class="unchecked"></td>
+            <td class="unchecked"></td>
+            <td class="checked"></td>
+        </tr>
+    </table>
+    </div>
+
+    <!-- Benefits Cards -->
+    <h3>Backed By Clinical Studies</h3>
+    <p>Over the last 10 years, dozens of clinical studies have concluded that cupping leads to a decrease in muscle activity, resulting in pain reduction, reduced inflammation, and accelerated rate of recovery with safe and consistent use. Renoheal™ reported even better results from consumer-based testing.</p>
+
+    <div class="benefits">
+        <div class="benefit-card">
+            <div class="benefit-icon">❤️</div>
+            <strong>Synergized</strong> 4 clinically-proven therapy modules for max effectiveness.
+        </div>
+        <div class="benefit-card">
+            <div class="benefit-icon">⚡</div>
+            <strong>Fast and efficient</strong> treatments that are typically 15 minutes or less.
+        </div>
+        <div class="benefit-card">
+            <div class="benefit-icon">🏠</div>
+            <strong>Convenient</strong> treatments enjoyed in the comfort of your own home.
+        </div>
+        <div class="benefit-card">
+            <div class="benefit-icon">💰</div>
+            <strong>Save money</strong> by replacing clinical treatment for similar or better results.
+        </div>
+    </div>
+
+    <!-- Product Description with Center Image and Callouts -->
+    <section class="desc-section">
+        <h3>Skincare Designed to Reveal Your Best Skin Every Day</h3>
+        <div class="callout-grid">
+            <div class="callout tl left">
+                <div class="title"><span class="icon">💧</span>Deep Hydration</div>
+                <p>Keeps skin soft, smooth, and refreshed throughout the day.</p>
+            </div>
+            <div class="desc-image">
+                <img src="description.jpg" alt="Product description visual">
+            </div>
+            <div class="callout tr right">
+                <div class="title"><span class="icon">🛡️</span>Protective Care</div>
+                <p>Shields against dryness and stressors for stronger, healthier skin.</p>
+            </div>
+            <div class="callout bl left">
+                <div class="title"><span class="icon">✨</span>Natural Glow</div>
+                <p>Restores balance for a healthy, luminous look.</p>
+            </div>
+            <div class="callout br right">
+                <div class="title"><span class="icon">🌿</span>Soothing Formula</div>
+                <p>Calms irritation while nourishing—even suitable for sensitive skin.</p>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+</body>
+</html>
