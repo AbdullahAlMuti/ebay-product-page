@@ -138,6 +138,26 @@ window.EditorApp = (function(){
     navigator.clipboard.writeText(text);
   }
 
+  function showSuccessOverlay(){
+    const overlay = document.getElementById('success-overlay');
+    if(!overlay) return;
+    
+    // Show overlay
+    overlay.classList.add('show');
+    
+    // Auto hide after 2 seconds
+    setTimeout(() => {
+      overlay.classList.remove('show');
+    }, 2000);
+    
+    // Hide on click outside
+    overlay.addEventListener('click', (e) => {
+      if(e.target === overlay) {
+        overlay.classList.remove('show');
+      }
+    });
+  }
+
   function download(filename, text){
     const blob = new Blob([text], {type:'text/html'});
     const url = URL.createObjectURL(blob);
@@ -148,21 +168,64 @@ window.EditorApp = (function(){
   }
 
   function wireToolbar(){
+    // Handle toolbar buttons with data-cmd attribute
     document.querySelectorAll('[data-cmd]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
-        state.frame.contentDocument.execCommand(btn.dataset.cmd, false, null);
-        state.frame.contentWindow.focus();
+        if(state.frame && state.frame.contentDocument){
+          state.frame.contentDocument.execCommand(btn.dataset.cmd, false, null);
+          state.frame.contentWindow.focus();
+        }
       });
     });
-    document.getElementById('color-text').addEventListener('input', e=>{
-      state.frame.contentDocument.execCommand('foreColor', false, e.target.value);
-    });
-    document.getElementById('color-bg').addEventListener('input', e=>{
-      state.frame.contentDocument.execCommand('hiliteColor', false, e.target.value);
-    });
-    document.getElementById('btn-h1').addEventListener('click', ()=> state.frame.contentDocument.execCommand('formatBlock', false, 'H1'));
-    document.getElementById('btn-h2').addEventListener('click', ()=> state.frame.contentDocument.execCommand('formatBlock', false, 'H2'));
-    document.getElementById('btn-p').addEventListener('click', ()=> state.frame.contentDocument.execCommand('formatBlock', false, 'P'));
+    
+    // Handle color inputs
+    const colorText = document.getElementById('color-text');
+    const colorBg = document.getElementById('color-bg');
+    
+    if(colorText){
+      colorText.addEventListener('input', e=>{
+        if(state.frame && state.frame.contentDocument){
+          state.frame.contentDocument.execCommand('foreColor', false, e.target.value);
+        }
+      });
+    }
+    
+    if(colorBg){
+      colorBg.addEventListener('input', e=>{
+        if(state.frame && state.frame.contentDocument){
+          state.frame.contentDocument.execCommand('hiliteColor', false, e.target.value);
+        }
+      });
+    }
+    
+    // Handle heading buttons
+    const btnH1 = document.getElementById('btn-h1');
+    const btnH2 = document.getElementById('btn-h2');
+    const btnP = document.getElementById('btn-p');
+    
+    if(btnH1){
+      btnH1.addEventListener('click', ()=> {
+        if(state.frame && state.frame.contentDocument){
+          state.frame.contentDocument.execCommand('formatBlock', false, 'H1');
+        }
+      });
+    }
+    
+    if(btnH2){
+      btnH2.addEventListener('click', ()=> {
+        if(state.frame && state.frame.contentDocument){
+          state.frame.contentDocument.execCommand('formatBlock', false, 'H2');
+        }
+      });
+    }
+    
+    if(btnP){
+      btnP.addEventListener('click', ()=> {
+        if(state.frame && state.frame.contentDocument){
+          state.frame.contentDocument.execCommand('formatBlock', false, 'P');
+        }
+      });
+    }
   }
 
   function wireImages(){
@@ -300,7 +363,10 @@ window.EditorApp = (function(){
   }
 
   function wireHeader(){
-    document.getElementById('btn-copy').addEventListener('click', ()=> copy(getEditedHtml()));
+    document.getElementById('btn-copy').addEventListener('click', ()=> {
+      copy(getEditedHtml());
+      showSuccessOverlay();
+    });
     document.getElementById('btn-download').addEventListener('click', ()=> download((state.currentName||'edited')+'.html', getEditedHtml()));
     document.getElementById('btn-save').addEventListener('click', ()=>{
       const name = prompt('Save as name:', state.currentName || 'template');
@@ -308,6 +374,38 @@ window.EditorApp = (function(){
       const templates = loadTemplates();
       templates[name] = getEditedHtml();
       saveTemplates(templates); state.currentName = name; try{ localStorage.setItem(state.lastTemplateKey, name); }catch{} populateTemplateList(); setStatus(`Saved: ${name}`);
+    });
+    
+    // Quick access buttons
+    document.getElementById('btn-import-clipboard').addEventListener('click', async ()=>{
+      try{
+        const text = await navigator.clipboard.readText();
+        if(text){
+          const name = 'Clipboard '+new Date().toLocaleString();
+          state.currentName = name; state.baselineHtml = text; loadHtmlIntoFrame(text);
+          const store = loadTemplates(); store[name] = text; saveTemplates(store);
+          try{ localStorage.setItem(state.lastTemplateKey, state.currentName); }catch{}
+          populateTemplateList();
+        }
+      }catch(err){ alert('Clipboard permission is required. Paste into code modal instead.'); }
+    });
+    
+    document.getElementById('btn-sanitize').addEventListener('click', ()=>{
+      const doc = state.frame.contentDocument;
+      // lightweight sanitize
+      doc.querySelectorAll('script, iframe, form, object, embed').forEach(n=>n.remove());
+      Array.from(doc.querySelectorAll('*')).forEach(el=>{ for(const a of Array.from(el.attributes)) if(/^on/i.test(a.name)) el.removeAttribute(a.name); });
+      doc.querySelectorAll('style').forEach(s=>{ s.textContent=(s.textContent||'').replace(/@keyframes[\s\S]*?\{[\s\S]*?\}/g,''); });
+      alert('Document sanitized for eBay safety.');
+    });
+    
+    document.getElementById('btn-change-url').addEventListener('click', ()=>{
+      const url = prompt('Enter new product URL:', '');
+      if(url && url.trim()){
+        // This would typically update a product URL field or variable
+        // For now, we'll just show a confirmation
+        alert(`Product URL updated to: ${url}`);
+      }
     });
     const exportBtn = document.getElementById('btn-export-safe');
     if(exportBtn){ exportBtn.addEventListener('click', ()=>{

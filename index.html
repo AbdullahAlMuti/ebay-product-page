@@ -5,129 +5,218 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Template Visual Editor</title>
   <link rel="stylesheet" href="assets/editor.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
   <header class="app-header">
-    <div class="brand">ALMUTI LLC eBay Product Editor</div>
-    <div class="header-actions">
-      <div class="group">
-        <label class="accent-control"><span>Accent</span><input id="accent-color" type="color" value="#16a34a"></label>
-        <button id="btn-dark" class="btn" title="Toggle dark mode">Dark</button>
-        <button id="btn-export-safe" class="btn" title="Sanitize and download eBay-safe HTML">Export eBay Safe</button>
-        <button id="btn-reset-all" class="btn" title="Reset theme, zoom, layout and panels">Reset</button>
+    <div class="header-left">
+      <div class="brand">
+        <div class="brand-icon">⚡</div>
+        <div class="brand-text">
+          <div class="brand-title">ALMUTI LLC</div>
+          <div class="brand-subtitle">eBay Product Editor</div>
+        </div>
       </div>
-      <button id="btn-copy" class="btn primary" title="Copy edited HTML">Copy HTML</button>
-      <button id="btn-download" class="btn" title="Download edited HTML">Download</button>
-      <button id="btn-save" class="btn" title="Save to Templates">Save</button>
+    </div>
+    
+    <div class="header-center">
+      <div class="quick-actions">
+        <button id="btn-import-clipboard" class="quick-btn" title="Import from Clipboard">
+          <span class="quick-icon">📋</span>
+          <span class="quick-text">Import</span>
+        </button>
+        <button id="btn-sanitize" class="quick-btn" title="Sanitize Data">
+          <span class="quick-icon">🛡️</span>
+          <span class="quick-text">Sanitize</span>
+        </button>
+        <button id="btn-change-url" class="quick-btn" title="Change Product URL">
+          <span class="quick-icon">🔗</span>
+          <span class="quick-text">URL</span>
+        </button>
+      </div>
+    </div>
+    
+    <div class="header-right">
+      <div class="header-controls">
+        <div class="control-group">
+          <label class="accent-control">
+            <span class="control-label">Accent</span>
+            <input id="accent-color" type="color" value="#16a34a" class="color-input">
+          </label>
+          <button id="btn-dark" class="control-btn" title="Toggle dark mode">
+            <span class="btn-icon">🌙</span>
+          </button>
+        </div>
+        
+        <div class="action-buttons">
+          <button id="btn-export-safe" class="action-btn secondary" title="Sanitize and download eBay-safe HTML">
+            <span class="btn-icon">🛡️</span>
+            <span class="btn-text">Export Safe</span>
+          </button>
+          <button id="btn-reset-all" class="action-btn secondary" title="Reset theme, zoom, layout and panels">
+            <span class="btn-icon">🔄</span>
+            <span class="btn-text">Reset</span>
+          </button>
+          <button id="btn-copy" class="action-btn primary" title="Copy edited HTML">
+            <span class="btn-icon">📋</span>
+            <span class="btn-text">Copy HTML</span>
+          </button>
+          <button id="btn-download" class="action-btn primary" title="Download edited HTML">
+            <span class="btn-icon">💾</span>
+            <span class="btn-text">Download</span>
+          </button>
+          <button id="btn-save" class="action-btn primary" title="Save to Templates">
+            <span class="btn-icon">💾</span>
+            <span class="btn-text">Save</span>
+          </button>
+        </div>
+      </div>
     </div>
   </header>
 
   <div class="app">
     <aside class="sidebar">
+      <div class="sidebar-content">
       <div class="section">
+          <div class="section-header">
         <div class="section-title">Templates</div>
-        <div class="stack">
-          <select id="template-list" class="select"><option value="__default">--Select_Template--</option>
-          
+            <div class="section-icon">📄</div>
+          </div>
+          <div class="section-content">
+            <div class="template-select">
+              <select id="template-list" class="compact-select">
+                <option value="__default">--Select_Template--</option>
             <option value="template.html">template.html</option>
             <option value="template2.html">template2.html</option>
-          
           </select>
+            </div>
 
-          <div class="row">
-            <button id="btn-new" class="btn">New Blank</button>
-            <button id="btn-delete" class="btn danger">Delete</button>
+            <div class="template-actions">
+              <button id="btn-new" class="compact-btn primary">
+                <span class="btn-icon">➕</span>
+                <span class="btn-text">New</span>
+              </button>
+              <button id="btn-delete" class="compact-btn danger">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Del</span>
+              </button>
+              <button id="btn-upload" class="compact-btn secondary">
+                <span class="btn-icon">📤</span>
+                <span class="btn-text">Upload</span>
+              </button>
+      </div>
+
+            <div class="file-input-wrapper">
+              <input id="file-input" type="file" accept=".html,.htm" class="hidden-file-input">
           </div>
-          <input id="file-input" type="file" accept=".html,.htm" class="file-input">
-          <button id="btn-upload" class="btn">Upload HTML</button>
-          <button id="btn-import-clipboard" class="btn">Import from Clipboard</button>
+          </div>
+        </div>
+
+      <div class="section">
+          <div class="section-header">
+            <div class="section-title">Images</div>
+            <div class="section-icon">🖼️</div>
+          </div>
+          <div class="section-content">
+            <div class="image-actions">
+              <div class="action-card">
+                <div class="action-icon">🔄</div>
+                <div class="action-content">
+                  <div class="action-title">Replace Image</div>
+                  <div class="action-desc">Select an image in preview and replace it</div>
+                </div>
+                <button id="btn-replace-img" class="modern-btn primary">
+                  <span class="btn-icon">🔄</span>
+                  <span class="btn-text">Replace</span>
+                </button>
+              </div>
+              
+              <div class="action-card delete-card">
+                <button id="btn-delete-img" class="delete-btn" title="Delete the selected image from the template">
+                  <span class="delete-icon">🗑️</span>
+                  <span class="image-icon">🖼️</span>
+                </button>
         </div>
       </div>
 
-      <details class="section panel collapse" id="history-panel">
-        <summary><div class="panel-title">History</div></summary>
-        <div class="panel-body">
-          <div class="row">
-            <select id="history-list" class="select" style="flex:1"></select>
-          </div>
-          <div class="btn-group">
-            <button id="btn-history-snapshot" class="btn">Snapshot</button>
-            <button id="btn-history-restore" class="btn">Restore Selected</button>
-            <button id="btn-history-delete" class="btn danger">Delete Selected</button>
-            <label class="row" style="gap:6px"><input type="checkbox" id="history-auto"> Auto</label>
-          </div>
-          <small>Snapshots save the current edited state. Reset always returns to the base template.</small>
-        </div>
-      </details>
-
-      <div class="section">
-        <div class="section-title">Formatting</div>
-        <div class="toolbar">
-          <button data-cmd="undo" class="btn">Undo</button>
-          <button data-cmd="redo" class="btn">Redo</button>
-          <button data-cmd="bold" class="btn">B</button>
-          <button data-cmd="italic" class="btn">I</button>
-          <button data-cmd="underline" class="btn">U</button>
-          <button data-cmd="insertUnorderedList" class="btn">• List</button>
-          <button data-cmd="justifyLeft" class="btn">Align L</button>
-          <button data-cmd="justifyCenter" class="btn">Align C</button>
-          <button data-cmd="justifyRight" class="btn">Align R</button>
-          <label class="color">
-            <span>Text</span>
-            <input type="color" id="color-text">
-          </label>
-          <label class="color">
-            <span>BG</span>
-            <input type="color" id="color-bg">
-          </label>
-          <div class="row">
-            <button id="btn-h1" class="btn">H1</button>
-            <button id="btn-h2" class="btn">H2</button>
-            <button id="btn-p" class="btn">P</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="section-title">Images</div>
-        <div class="stack">
-          <div class="row">
-            <button id="btn-replace-img" class="btn">Replace Selected Image</button>
-            <button id="btn-delete-img" class="btn danger" title="Delete the selected image from the template">Delete Selected Image</button>
+            <div class="upload-section">
+              <div class="upload-area">
+                <div class="upload-icon">📁</div>
+                <div class="upload-text">
+                  <div class="upload-title">Upload Image File</div>
+                  <div class="upload-desc">Click to browse or drag & drop</div>
           </div>
           <input id="img-file" type="file" accept="image/*" class="file-input">
-          <div class="row">
-            <input id="img-url" type="url" placeholder="https://example.com/image.jpg" class="file-input" style="flex:1">
-            <button id="btn-set-img-url" class="btn">Set Image URL</button>
-          </div>
-          <small>Select an image inside the preview, then click replace.</small>
-          <hr>
-          <details id="adv-img" class="collapse">
-            <summary>Advanced</summary>
-            <div class="stack">
-            <div class="row">
-              <label style="width:70px">Alt</label>
-              <input id="img-alt" type="text" placeholder="Alternative text" class="file-input" style="flex:1">
+              </div>
             </div>
-            <div class="row">
-              <label style="width:70px">Mode</label>
-              <select id="img-size-mode" class="select" style="flex:1">
+            
+            <div class="url-section">
+              <div class="url-header">
+                <div class="url-icon">🔗</div>
+                <div class="url-title">Image URL</div>
+              </div>
+              <div class="url-input-container">
+                <div class="url-input-wrapper">
+                  <input id="img-url" type="url" placeholder="https://example.com/image.jpg" class="modern-input url-input">
+                  <div class="url-status">
+                    <span class="url-status-icon">🌐</span>
+                  </div>
+                </div>
+                <button id="btn-set-img-url" class="modern-btn primary url-btn">
+                  <span class="btn-icon">🔗</span>
+                  <span class="btn-text">Set URL</span>
+                </button>
+          </div>
+              <div class="url-help">Enter a valid image URL to replace the selected image</div>
+            </div>
+            
+            <div class="help-text">Select an image inside the preview, then click replace.</div>
+            <details id="adv-img" class="collapse">
+              <summary>
+                <div class="section-header">
+                  <div class="section-title">Advanced Settings</div>
+                  <div class="section-icon">⚙️</div>
+                </div>
+              </summary>
+              <div class="section-content">
+                <div class="form-group">
+                  <label class="form-label">Alt Text</label>
+                  <input id="img-alt" type="text" placeholder="Alternative text" class="modern-input">
+                </div>
+                
+                <div class="form-group">
+                  <label class="form-label">Size Mode</label>
+                  <select id="img-size-mode" class="modern-select">
                 <option value="preserve">Preserve current size</option>
                 <option value="width">Set width, keep ratio</option>
                 <option value="height">Set height, keep ratio</option>
                 <option value="natural">Use natural size</option>
               </select>
             </div>
-            <div class="row">
-              <label style="width:70px">W</label>
-              <input id="img-w" type="number" min="1" step="1" placeholder="px" class="file-input" style="width:110px">
-              <label style="width:40px">H</label>
-              <input id="img-h" type="number" min="1" step="1" placeholder="px" class="file-input" style="width:110px">
-              <label class="row" style="gap:6px"><input type="checkbox" id="img-lock"> Lock ratio</label>
+                
+                <div class="size-controls">
+                  <div class="form-group">
+                    <label class="form-label">Width</label>
+                    <input id="img-w" type="number" min="1" step="1" placeholder="px" class="modern-input">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Height</label>
+                    <input id="img-h" type="number" min="1" step="1" placeholder="px" class="modern-input">
+                  </div>
+                  <div class="checkbox-group">
+                    <label class="modern-checkbox">
+                      <input type="checkbox" id="img-lock">
+                      <span class="checkmark"></span>
+                      <span class="checkbox-label">Lock ratio</span>
+                    </label>
+                  </div>
             </div>
-            <div class="row">
-              <label style="width:70px">Fit</label>
-              <select id="img-fit" class="select" style="flex:1">
+                
+                <div class="form-group">
+                  <label class="form-label">Object Fit</label>
+                  <select id="img-fit" class="modern-select">
                 <option value="cover">cover</option>
                 <option value="contain">contain</option>
                 <option value="fill">fill</option>
@@ -135,9 +224,10 @@
                 <option value="scale-down">scale-down</option>
               </select>
             </div>
-            <div class="row">
-              <label style="width:70px">Pos</label>
-              <select id="img-pos" class="select" style="flex:1">
+                
+                <div class="form-group">
+                  <label class="form-label">Position</label>
+                  <select id="img-pos" class="modern-select">
                 <option>center center</option>
                 <option>top left</option>
                 <option>top center</option>
@@ -149,49 +239,162 @@
                 <option>bottom right</option>
               </select>
             </div>
-            <div class="row">
-              <button id="btn-apply-img" class="btn primary">Apply</button>
-              <button id="btn-reset-img" class="btn">Reset</button>
-              <button id="btn-apply-all-img" class="btn">Apply to All Similar</button>
+                
+                <div class="button-group">
+                  <button id="btn-apply-img" class="modern-btn primary">
+                    <span class="btn-icon">✓</span>
+                    <span class="btn-text">Apply</span>
+                  </button>
+                  <button id="btn-reset-img" class="modern-btn secondary">
+                    <span class="btn-icon">↶</span>
+                    <span class="btn-text">Reset</span>
+                  </button>
+                  <button id="btn-apply-all-img" class="modern-btn secondary">
+                    <span class="btn-icon">🔄</span>
+                    <span class="btn-text">Apply to All</span>
+                  </button>
             </div>
             </div>
           </details>
         </div>
       </div>
 
-      <details class="section panel collapse" id="ai-assistant">
-        <summary><div class="panel-title">AI Assistant (Gemini) <span class="badge">Live</span></div></summary>
-        <div class="panel-body">
-          <div class="row">
-            <input id="ai-key" type="password" placeholder="Gemini API Key" class="file-input" style="flex:1">
-            <label class="row" style="gap:6px"><input type="checkbox" id="ai-remember"> Remember</label>
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title">Formatting</div>
+            <div class="section-icon">✏️</div>
           </div>
-          <div class="row">
-            <label style="width:70px">Model</label>
-            <select id="ai-model" class="select" style="flex:1">
+          <div class="section-content">
+            <div class="toolbar">
+              <div class="toolbar-row">
+                <button data-cmd="undo" class="toolbar-btn" title="Undo">
+                  <span class="btn-icon">↶</span>
+                </button>
+                <button data-cmd="redo" class="toolbar-btn" title="Redo">
+                  <span class="btn-icon">↷</span>
+                </button>
+                <button data-cmd="bold" class="toolbar-btn" title="Bold">
+                  <span class="btn-text">B</span>
+                </button>
+                <button data-cmd="italic" class="toolbar-btn" title="Italic">
+                  <span class="btn-text">I</span>
+                </button>
+                <button data-cmd="underline" class="toolbar-btn" title="Underline">
+                  <span class="btn-text">U</span>
+                </button>
+              </div>
+              <div class="toolbar-row">
+                <button data-cmd="insertUnorderedList" class="toolbar-btn" title="List">
+                  <span class="btn-icon">•</span>
+                </button>
+                <button data-cmd="justifyLeft" class="toolbar-btn" title="Align Left">
+                  <span class="btn-icon">⬅</span>
+                </button>
+                <button data-cmd="justifyCenter" class="toolbar-btn" title="Align Center">
+                  <span class="btn-icon">⬆</span>
+                </button>
+                <button data-cmd="justifyRight" class="toolbar-btn" title="Align Right">
+                  <span class="btn-icon">➡</span>
+                </button>
+              </div>
+              <div class="color-controls">
+                <label class="color-input-group">
+                  <span class="color-label">Text</span>
+                  <input type="color" id="color-text" class="color-picker">
+                </label>
+                <label class="color-input-group">
+                  <span class="color-label">BG</span>
+                  <input type="color" id="color-bg" class="color-picker">
+                </label>
+              </div>
+              <div class="heading-controls">
+                <button id="btn-h1" class="heading-btn" title="Heading 1">H1</button>
+                <button id="btn-h2" class="heading-btn" title="Heading 2">H2</button>
+                <button id="btn-p" class="heading-btn" title="Paragraph">P</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <details class="section panel collapse" id="ai-assistant">
+          <summary>
+            <div class="section-header">
+              <div class="section-title">AI Assistant (Gemini)</div>
+              <div class="section-icon">🤖</div>
+              <span class="badge">Live</span>
+            </div>
+          </summary>
+          <div class="section-content">
+            <div class="form-group">
+              <input id="ai-key" type="password" placeholder="Gemini API Key" class="modern-input">
+              <div class="checkbox-group">
+                <label class="modern-checkbox">
+                  <input type="checkbox" id="ai-remember">
+                  <span class="checkmark"></span>
+                  <span class="checkbox-label">Remember</span>
+                </label>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Model</label>
+              <select id="ai-model" class="modern-select">
               <option value="gemini-1.5-flash">gemini-1.5-flash</option>
               <option value="gemini-1.5-pro">gemini-1.5-pro</option>
             </select>
           </div>
-          <textarea id="ai-prompt" class="input-lg" rows="4" placeholder="Ask the AI... e.g., Rewrite the selected text in a more persuasive, concise tone for eBay."></textarea>
-          <div class="btn-group">
-            <button id="btn-ai-run" class="btn primary">Run</button>
-            <button id="btn-ai-insert" class="btn">Insert into Selection</button>
-            <button id="btn-ai-rewrite" class="btn">Rewrite Selection</button>
-            <button id="btn-ai-bullets" class="btn">Bullet Points</button>
-            <button id="btn-ai-alt" class="btn">ALT for Image</button>
-            <button id="btn-ai-copy" class="btn">Copy Output</button>
-          </div>
-          <textarea id="ai-output" class="output" rows="5" placeholder="AI output will appear here..."></textarea>
+            
+            <div class="form-group">
+              <label class="form-label">Prompt</label>
+              <textarea id="ai-prompt" class="modern-textarea" rows="4" placeholder="Ask the AI... e.g., Rewrite the selected text in a more persuasive, concise tone for eBay."></textarea>
+            </div>
+            
+            <div class="button-group">
+              <button id="btn-ai-run" class="modern-btn primary">
+                <span class="btn-icon">▶️</span>
+                <span class="btn-text">Run</span>
+              </button>
+              <button id="btn-ai-insert" class="modern-btn secondary">
+                <span class="btn-icon">📝</span>
+                <span class="btn-text">Insert</span>
+              </button>
+              <button id="btn-ai-rewrite" class="modern-btn secondary">
+                <span class="btn-icon">✏️</span>
+                <span class="btn-text">Rewrite</span>
+              </button>
+              <button id="btn-ai-bullets" class="modern-btn secondary">
+                <span class="btn-icon">•</span>
+                <span class="btn-text">Bullets</span>
+              </button>
+              <button id="btn-ai-alt" class="modern-btn secondary">
+                <span class="btn-icon">🖼️</span>
+                <span class="btn-text">ALT</span>
+              </button>
+              <button id="btn-ai-copy" class="modern-btn secondary">
+                <span class="btn-icon">📋</span>
+                <span class="btn-text">Copy</span>
+              </button>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Output</label>
+              <textarea id="ai-output" class="modern-textarea output" rows="5" placeholder="AI output will appear here..."></textarea>
+            </div>
         </div>
       </details>
 
       <details class="section panel collapse" id="ai-writer">
-        <summary><div class="panel-title">AI Writer Pro</div></summary>
-        <div class="panel-body">
-          <div class="row">
-            <label style="width:70px">Tone</label>
-            <select id="ai-tone" class="select" style="flex:1">
+          <summary>
+            <div class="section-header">
+              <div class="section-title">AI Writer Pro</div>
+              <div class="section-icon">✍️</div>
+            </div>
+          </summary>
+          <div class="section-content">
+            <div class="form-group">
+              <label class="form-label">Tone</label>
+              <select id="ai-tone" class="modern-select">
               <option>Concise</option>
               <option>Persuasive</option>
               <option>Professional</option>
@@ -199,9 +402,10 @@
               <option>Technical</option>
             </select>
           </div>
-          <div class="row">
-            <label style="width:70px">Goal</label>
-            <select id="ai-goal" class="select" style="flex:1">
+            
+            <div class="form-group">
+              <label class="form-label">Goal</label>
+              <select id="ai-goal" class="modern-select">
               <option value="bullets">Key Bullet Points</option>
               <option value="desc">Product Description</option>
               <option value="title">Optimized Title</option>
@@ -209,53 +413,112 @@
               <option value="meta">SEO Meta</option>
             </select>
           </div>
-          <textarea id="ai-source" class="input-lg" rows="4" placeholder="Paste specs or product info; empty uses selection"></textarea>
-          <div class="btn-group">
-            <button id="btn-ai-generate" class="btn primary">Generate</button>
-            <button id="btn-ai-apply" class="btn">Insert/Replace</button>
-          </div>
-          <textarea id="ai-result" class="output" rows="6" placeholder="Generated content..."></textarea>
+            
+            <div class="form-group">
+              <label class="form-label">Source</label>
+              <textarea id="ai-source" class="modern-textarea" rows="4" placeholder="Paste specs or product info; empty uses selection"></textarea>
+            </div>
+            
+            <div class="button-group">
+              <button id="btn-ai-generate" class="modern-btn primary">
+                <span class="btn-icon">⚡</span>
+                <span class="btn-text">Generate</span>
+              </button>
+              <button id="btn-ai-apply" class="modern-btn secondary">
+                <span class="btn-icon">📝</span>
+                <span class="btn-text">Insert/Replace</span>
+              </button>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Result</label>
+              <textarea id="ai-result" class="modern-textarea output" rows="6" placeholder="Generated content..."></textarea>
+            </div>
         </div>
       </details>
 
       <div class="section panel">
-        <div class="panel-header"><div class="panel-title">eBay Safe Tools</div></div>
-        <div class="panel-body">
-          <div class="btn-group">
-            <button id="btn-sanitize" class="btn">Sanitize Entire Document</button>
-            <button id="btn-remove-inline-scripts" class="btn">Strip Inline Event Handlers</button>
+          <div class="section-header">
+            <div class="section-title">eBay Safe Tools</div>
+            <div class="section-icon">🛡️</div>
           </div>
-          <small>Removes active content (scripts, iframes, forms, keyframes) and unsafe attributes; preserves layout.</small>
+          <div class="section-content">
+            <div class="button-group">
+              <button id="btn-sanitize" class="modern-btn primary">
+                <span class="btn-icon">🛡️</span>
+                <span class="btn-text">Sanitize Document</span>
+              </button>
+              <button id="btn-remove-inline-scripts" class="modern-btn secondary">
+                <span class="btn-icon">🧹</span>
+                <span class="btn-text">Strip Handlers</span>
+              </button>
+            </div>
+            <div class="help-text">Removes active content (scripts, iframes, forms, keyframes) and unsafe attributes; preserves layout.</div>
         </div>
       </div>
 
       <details class="section panel collapse" id="analyzer">
-        <summary><div class="panel-title">SEO & Performance Analyzer</div></summary>
-        <div class="panel-body">
-          <div class="btn-group">
-            <button id="btn-analyze" class="btn primary">Run Analysis</button>
-          </div>
-          <div class="form-grid">
-            <div>
-              <div class="score"><span>SEO Score</span><div class="bar"><div id="seo-bar"></div></div><span id="seo-score">0</span></div>
+          <summary>
+            <div class="section-header">
+              <div class="section-title">SEO & Performance Analyzer</div>
+              <div class="section-icon">📊</div>
             </div>
-            <div>
-              <div class="score"><span>Speed Score</span><div class="bar"><div id="perf-bar"></div></div><span id="perf-score">0</span></div>
+          </summary>
+          <div class="section-content">
+            <div class="button-group">
+              <button id="btn-analyze" class="modern-btn primary">
+                <span class="btn-icon">📊</span>
+                <span class="btn-text">Run Analysis</span>
+              </button>
+            </div>
+            
+            <div class="score-grid">
+              <div class="score-item">
+                <div class="score-label">SEO Score</div>
+                <div class="score-bar">
+                  <div class="score-fill" id="seo-bar"></div>
+                </div>
+                <div class="score-value" id="seo-score">0</div>
+              </div>
+              <div class="score-item">
+                <div class="score-label">Speed Score</div>
+                <div class="score-bar">
+                  <div class="score-fill" id="perf-bar"></div>
+                </div>
+                <div class="score-value" id="perf-score">0</div>
+          </div>
+            </div>
+            
+            <div class="suggestions-section">
+              <div class="section-title">Suggestions</div>
+              <ul id="analysis-list" class="suggestions-list"></ul>
             </div>
           </div>
-          <div class="section-title" style="margin-top:6px">Suggestions</div>
-          <ul id="analysis-list"></ul>
+        </details>
         </div>
-      </details>
     </aside>
+    
     <div class="splitter" id="splitter" title="Drag to resize"></div>
+    
     <main class="editor">
       <div class="editor-toolbar">
+        <div class="editor-status">
+          <div class="status-indicator"></div>
         <span id="status">No template loaded</span>
+        </div>
         <div class="editor-actions">
-          <button id="btn-code" class="btn">View Code</button>
-          <button id="btn-reset-zoom" class="btn">Reset Zoom</button>
-          <label class="zoom">Zoom <input id="zoom-range" type="range" min="60" max="140" value="100"></label>
+          <button id="btn-code" class="modern-btn secondary">
+            <span class="btn-icon">💻</span>
+            <span class="btn-text">View Code</span>
+          </button>
+          <button id="btn-reset-zoom" class="modern-btn secondary">
+            <span class="btn-icon">🔍</span>
+            <span class="btn-text">Reset Zoom</span>
+          </button>
+          <div class="zoom-control">
+            <label class="zoom-label">Zoom</label>
+            <input id="zoom-range" type="range" min="60" max="140" value="100" class="zoom-slider">
+          </div>
         </div>
       </div>
       <div class="frame-wrap">
@@ -267,19 +530,46 @@
   <dialog id="code-modal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
-        <div class="title">Edited HTML</div>
-        <button class="btn" id="btn-close-code">Close</button>
+        <div class="modal-title">
+          <span class="modal-icon">💻</span>
+          <span>Edited HTML</span>
+        </div>
+        <button class="modal-close" id="btn-close-code">
+          <span class="btn-icon">✕</span>
+        </button>
       </div>
-      <textarea id="code-area" spellcheck="false"></textarea>
-      <div class="row" style="justify-content:space-between;gap:8px;padding:8px 12px;">
-        <label class="row" style="gap:6px"><input type="checkbox" id="code-live"> Live preview to code</label>
-        <div class="row right">
-          <button class="btn" id="btn-apply-code" title="Apply code to preview">Apply to Preview</button>
-          <button class="btn" id="btn-copy-code">Copy</button>
+      <div class="modal-body">
+        <textarea id="code-area" spellcheck="false" class="code-editor"></textarea>
+      </div>
+      <div class="modal-footer">
+        <div class="modal-controls">
+          <label class="modern-checkbox">
+            <input type="checkbox" id="code-live">
+            <span class="checkmark"></span>
+            <span class="checkbox-label">Live preview to code</span>
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button class="modern-btn secondary" id="btn-apply-code" title="Apply code to preview">
+            <span class="btn-icon">↩️</span>
+            <span class="btn-text">Apply to Preview</span>
+          </button>
+          <button class="modern-btn primary" id="btn-copy-code">
+            <span class="btn-icon">📋</span>
+            <span class="btn-text">Copy</span>
+          </button>
         </div>
       </div>
     </div>
   </dialog>
+
+  <!-- Success Overlay -->
+  <div id="success-overlay" class="success-overlay">
+    <div class="success-content">
+      <div class="success-icon">❤️</div>
+      <div class="success-text">Copied Successfully</div>
+    </div>
+  </div>
 
   <script src="assets/editor.js"></script>
   <script>

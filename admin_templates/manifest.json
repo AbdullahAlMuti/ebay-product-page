@@ -1,7 +1,49 @@
 {
   "templates": [
-    { "name": "Admin: Smart Cupping Massager", "file": "admin_templates/template.html" },
-    { "name": "Admin: Hello World", "file": "admin_templates/template2.html" }
-  ]
+    {
+      "name": "Smart Cupping Massager",
+      "file": "admin_templates/template.html",
+      "description": "Professional product page for Smart Cupping Massager with modern design, features, and benefits",
+      "category": "Health & Wellness",
+      "tags": ["massager", "cupping", "wellness", "health"]
+    },
+    {
+      "name": "Hello World Template",
+      "file": "admin_templates/template2.html",
+      "description": "Simple template for testing and development purposes",
+      "category": "Development",
+      "tags": ["test", "simple", "development"]
+    },
+    {
+      "name": "Sanitized Template 1",
+      "file": "admin_templates/template_1_sanitized.html",
+      "description": "eBay-safe sanitized template with clean HTML structure",
+      "category": "eBay Safe",
+      "tags": ["sanitized", "ebay", "clean", "safe"]
+    },
+    {
+      "name": "Sanitized Template 2",
+      "file": "admin_templates/template_2_sanitized.html",
+      "description": "eBay-compliant template with optimized performance",
+      "category": "eBay Safe",
+      "tags": ["sanitized", "ebay", "optimized", "performance"]
+    },
+    {
+      "name": "Sanitized Template 3",
+      "file": "admin_templates/template_3_sanitized.html",
+      "description": "Professional sanitized template for e-commerce listings",
+      "category": "eBay Safe",
+      "tags": ["sanitized", "ebay", "ecommerce", "professional"]
+    }
+  ],
+  "categories": [
+    "Health & Wellness",
+    "Development", 
+    "eBay Safe",
+    "E-commerce",
+    "Professional"
+  ],
+  "version": "1.0.0",
+  "lastUpdated": "2024-01-15"
 }
 

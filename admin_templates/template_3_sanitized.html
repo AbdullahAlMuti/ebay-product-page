@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Smart Cupping Massager – Professional pain relief device. Improve blood circulation, reduce muscle pain, fast recovery. Free shipping, 1-year warranty.">
+<title>Smart Cupping Massager | Professional Pain Relief Device</title>
+<style>
+:root {
+    --green-50: #f0fdf4;
+    --green-100: #dcfce7;
+    --green-200: #bbf7d0;
+    --green-300: #86efac;
+    --green-400: #4ade80;
+    --green-500: #22c55e;
+    --green-600: #16a34a;
+    --green-700: #15803d;
+    --green-800: #166534;
+    --green-900: #14532d;
+    --text-900: #111827;
+    --text-700: #374151;
+    --bg-page: #f7fdf9;
+    --bg-card: #ffffff;
+    --shadow-soft: 0 4px 14px rgba(0,0,0,0.06);
+    --radius-lg: 12px;
+    --radius-md: 10px;
+}
+* {
+    box-sizing: border-box;
+}
+html { font-size: 16px; }
+img { max-width: 100%; height: auto; display: block; }
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-page);
+    color: var(--text-900);
+    line-height: 1.6;
+}
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+/* Hero section */
+.hero-faq {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 24px;
+    align-items: center;
+    margin: 16px 0 8px 0;
+}
+.hero-image img {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    display: block;
+}
+.hero-info { display: grid; gap: 16px; }
+.hero-title { margin: 0; color: var(--green-900); font-weight: 800; font-size: 28px; }
+.usp-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+.usp {
+    display: grid;
+    place-items: center;
+    text-align: center;
+    background: var(--bg-card);
+    border: 1px solid var(--green-100);
+    border-radius: var(--radius-md);
+    padding: 12px 8px;
+    box-shadow: var(--shadow-soft);
+}
+.usp .icon { font-size: 22px; color: var(--green-700); }
+.usp .text { font-weight: 700; font-size: 12px; color: var(--green-800); }
+.key-points { list-style: none; padding: 0; margin: 4px 0 6px 0; display: grid; gap: 6px; }
+.key-points li { display: flex; align-items: center; gap: 8px; color: var(--text-900); font-weight: 700; }
+.key-points .kp-icon { color: var(--green-700); }
+.accordion { display: grid; gap: 8px; }
+.accordion details {
+    border: 1px solid var(--green-100);
+    border-radius: var(--radius-md);
+    background: var(--bg-card);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+}
+.accordion summary {
+    cursor: pointer;
+    list-style: none;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    font-weight: 700;
+    color: var(--green-800);
+    user-select: none;
+    min-height: 48px;
+}
+.accordion summary::-webkit-details-marker { display: none; }
+.accordion .qicon { font-size: 18px; color: var(--green-600); }
+.accordion summary::after {
+    content: "▾";
+    color: var(--green-700);
+}
+.accordion details[open] summary::after { transform: rotate(180deg); }
+.accordion .content {
+    padding: 0 14px 0 42px;
+    color: var(--text-700);
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin-top: 0;
+    transform: translateY(-4px);
+}
+.accordion details[open] .content {
+    max-height: 600px;
+    opacity: 1;
+    margin-top: 8px;
+    transform: translateY(0);
+    padding-bottom: 12px;
+}
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.flex .column {
+    flex: 1;
+    min-width: 250px;
+}
+h2, h3 {
+    color: var(--green-800);
+}
+.feature {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+.feature-icon {
+    color: var(--green-600);
+    font-size: 20px;
+    margin-right: 10px;
+    line-height: 1.2;
+}
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 10px;
+}
+.table-comparison {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: var(--bg-card);
+    box-shadow: var(--shadow-soft);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+.table-comparison th, .table-comparison td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+.table-comparison th {
+    background-color: var(--green-600);
+    color: white;
+}
+.table-comparison td.checked::after {
+    content: "✔";
+    color: var(--green-600);
+    font-weight: bold;
+}
+.table-comparison td.unchecked::after {
+    content: "✖";
+    color: #ef4444;
+    font-weight: bold;
+}
+.benefits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 15px;
+}
+.benefit-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: 15px;
+    flex: 1;
+    min-width: 220px;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--green-100);
+}
+.benefit-icon {
+    font-size: 30px;
+    margin-bottom: 10px;
+    color: var(--green-600);
+}
+/* Sales-driven sections */
+.sales-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+}
+.sales-card {
+    background: var(--bg-card);
+    border: 1px solid var(--green-100);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    border-left: 4px solid var(--green-500);
+}
+.sales-icon {
+    font-size: 32px;
+    margin-bottom: 10px;
+    display: block;
+}
+.sales-content h4 {
+    color: var(--green-800);
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    font-weight: 700;
+}
+.sales-content p {
+    color: var(--text-700);
+    margin: 0;
+    font-size: 14px;
+}
+.urgency-section {
+    background: var(--green-500);
+    color: white;
+    border-radius: var(--radius-lg);
+    padding: 25px;
+    margin-top: 25px;
+    text-align: center;
+}
+.urgency-content h4 {
+    margin: 0 0 10px 0;
+    font-size: 22px;
+    font-weight: 800;
+}
+.urgency-content p {
+    margin: 0 0 20px 0;
+    font-size: 16px;
+    opacity: 0.9;
+}
+.urgency-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+.urgency-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    background: rgba(255,255,255,0.1);
+    padding: 10px 15px;
+    border-radius: var(--radius-md);
+}
+.urgency-icon {
+    font-size: 16px;
+}
+/* Responsive design */
+@media(max-width:900px){
+    .hero-faq { grid-template-columns: 1fr; }
+    .hero-image { order: 1; }
+    .hero-info { order: 2; }
+}
+@media(max-width:768px){
+    .flex { flex-direction: column; }
+    .container { padding: 16px; }
+    .table-comparison th, .table-comparison td { padding: 12px 8px; font-size: 14px; }
+    .benefit-card { min-width: 180px; }
+    .sales-grid { grid-template-columns: 1fr; }
+    .urgency-features { grid-template-columns: 1fr; }
+}
+@media(max-width:480px){
+    h2, h3 { font-size: 1.1rem; }
+    .feature { margin-bottom: 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Hero: Product Image + Collapsible Rows + USPs -->
+    <section class="hero-faq">
+        <div class="hero-image">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiAsC-sZSJfqOdB6PX2-6b5wkjfmv0johjBvCNJ_trZCOEOeaZmvawtJl7GzNG4gj7kVQaEBRMivNG8PmesS6YUvxzxutUv_htytES6iKR5uC2i1c8B6HyyaTi7jqUMB0AOSYUjhn-b_WAc662IqNUcFYBy_0Ks1KObReymguvBzcWbDliRDEkIN56bsOk/s1600/1.png" alt="Smart Cupping Massager main">
+        </div>
+        <div class="hero-info">
+            <h2 class="hero-title">Smart Cupping Massager</h2>
+            <div class="usp-row">
+                <div class="usp">
+                    <div class="icon">📦</div>
+                    <div class="text">Free Shipping</div>
+                </div>
+                <div class="usp">
+                    <div class="icon">😊</div>
+                    <div class="text">1 Year Warranty</div>
+                </div>
+                <div class="usp">
+                    <div class="icon">🎧</div>
+                    <div class="text">24/7 Support</div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <ul class="key-points">
+                    <li><span class="kp-icon">✔️</span>Improve Blood Circulation</li>
+                    <li><span class="kp-icon">🧩</span>Reduce Muscle Pain</li>
+                    <li><span class="kp-icon">🕒</span>Fast Recovery</li>
+                    <li><span class="kp-icon">🏡</span>Easy to Use</li>
+                </ul>
+                <details>
+                    <summary><span class="qicon">🛡️</span>Is this safe to use every day?</summary>
+                    <div class="content">Yes, it's designed for regular use. Start with shorter sessions and increase as desired.</div>
+                </details>
+                <details>
+                    <summary><span class="qicon">🚚</span>Shipping & Delivery</summary>
+                    <div class="content">Orders ship with tracking in 24–48 hours. Typical delivery: 5–9 business days.</div>
+                </details>
+                <details>
+                    <summary><span class="qicon">↩️</span>Return & Refund Policy</summary>
+                    <div class="content">Enjoy a 30‑day money‑back guarantee. If you're not satisfied, return for a full refund.</div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <div class="flex">
+        <div class="column">
+            <div class="feature"><div class="feature-icon">✔</div><div><strong>Improve blood flow</strong><br>Enhance your body's circulation effortlessly with our Smart Cupping Massager, promoting healthier blood flow.</div></div>
+            <div class="feature"><div class="feature-icon">✔</div><div><strong>Reduce muscle pain</strong><br>Target specific muscle groups to relieve tension, soreness, and stiffness from daily activities.</div></div>
+        </div>
+        <div class="column">
+            <div class="feature"><div class="feature-icon">✔</div><div><strong>Fast recovery</strong><br>Accelerate muscle recovery after workouts, sports, or physical therapy sessions.</div></div>
+            <div class="feature"><div class="feature-icon">✔</div><div><strong>Easy to use</strong><br>Experience the convenience of wellness anywhere with our compact and user-friendly design.</div></div>
+        </div>
+    </div>
+
+    <!-- Comparison Table -->
+    <h3>Why Choose Our Smart Cupping Massager</h3>
+    <p>Professional-grade pain relief device that combines traditional cupping therapy with modern technology for effective results at home.</p>
+    <div class="table-wrapper">
+    <table class="table-comparison">
+        <tr>
+            <th>FEATURES</th>
+            <th>OUR DEVICE</th>
+            <th>TRADITIONAL METHODS</th>
+        </tr>
+        <tr>
+            <td>Self-Application</td>
+            <td class="checked"></td>
+            <td class="unchecked"></td>
+        </tr>
+        <tr>
+            <td>No Side Effects</td>
+            <td class="checked"></td>
+            <td class="unchecked"></td>
+        </tr>
+        <tr>
+            <td>Cost Effective</td>
+            <td class="checked"></td>
+            <td class="unchecked"></td>
+        </tr>
+        <tr>
+            <td>Portable</td>
+            <td class="checked"></td>
+            <td class="unchecked"></td>
+        </tr>
+    </table>
+    </div>
+
+    <!-- Benefits Cards -->
+    <h3>Key Benefits</h3>
+    <p>Experience professional-grade pain relief and muscle recovery with our advanced cupping therapy device.</p>
+
+    <div class="benefits">
+        <div class="benefit-card">
+            <div class="benefit-icon">❤️</div>
+            <strong>Blood Circulation</strong> Improve blood flow and reduce inflammation naturally.
+        </div>
+        <div class="benefit-card">
+            <div class="benefit-icon">⚡</div>
+            <strong>Pain Relief</strong> Target muscle pain and tension effectively.
+        </div>
+        <div class="benefit-card">
+            <div class="benefit-icon">🏠</div>
+            <strong>Home Convenience</strong> Professional therapy in the comfort of your home.
+        </div>
+        <div class="benefit-card">
+            <div class="benefit-icon">💰</div>
+            <strong>Cost Effective</strong> Save money on expensive clinic visits.
+        </div>
+    </div>
+
+    <!-- Sales-Driven Information Section -->
+    <section class="desc-section">
+        <h3>Why Choose Our Smart Cupping Massager</h3>
+        <div class="sales-grid">
+            <div class="sales-card">
+                <div class="sales-icon">⭐</div>
+                <div class="sales-content">
+                    <h4>Highly Rated</h4>
+                    <p>Trusted by customers for effective pain relief</p>
+                </div>
+            </div>
+            <div class="sales-card">
+                <div class="sales-icon">🏆</div>
+                <div class="sales-content">
+                    <h4>Professional Quality</h4>
+                    <p>Built with durable materials for long-lasting use</p>
+                </div>
+            </div>
+            <div class="sales-card">
+                <div class="sales-icon">💰</div>
+                <div class="sales-content">
+                    <h4>Cost Effective</h4>
+                    <p>One-time purchase for ongoing pain relief at home</p>
+                </div>
+            </div>
+            <div class="sales-card">
+                <div class="sales-icon">⚡</div>
+                <div class="sales-content">
+                    <h4>Quick Results</h4>
+                    <p>Designed for fast and effective pain management</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="urgency-section">
+            <div class="urgency-content">
+                <h4>Get Started Today</h4>
+                <p>Experience professional pain relief in the comfort of your own home!</p>
+                <div class="urgency-features">
+                    <div class="urgency-item">
+                        <span class="urgency-icon">🚚</span>
+                        <span>Free Shipping</span>
+                    </div>
+                    <div class="urgency-item">
+                        <span class="urgency-icon">🛡️</span>
+                        <span>Warranty Included</span>
+                    </div>
+                    <div class="urgency-item">
+                        <span class="urgency-icon">↩️</span>
+                        <span>Easy Returns</span>
+                    </div>
+                    <div class="urgency-item">
+                        <span class="urgency-icon">📞</span>
+                        <span>Customer Support</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+</body>
+</html>
