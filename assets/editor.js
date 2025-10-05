@@ -141,21 +141,488 @@ window.EditorApp = (function(){
   function showSuccessOverlay(){
     const overlay = document.getElementById('success-overlay');
     if(!overlay) return;
-    
+
     // Show overlay
     overlay.classList.add('show');
-    
+
     // Auto hide after 2 seconds
     setTimeout(() => {
       overlay.classList.remove('show');
     }, 2000);
-    
+
     // Hide on click outside
     overlay.addEventListener('click', (e) => {
       if(e.target === overlay) {
         overlay.classList.remove('show');
       }
     });
+  }
+
+  function openGeminiInBlankPage(){
+    // Create a simple, working Gemini interface
+    const geminiHtml = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini AI Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .gemini-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid rgba(66, 133, 244, 0.1);
+        }
+        .gemini-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        .gemini-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+        }
+        .gemini-description {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+        .open-btn {
+            background: linear-gradient(135deg, #4285f4, #34a853);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(66, 133, 244, 0.3);
+            margin-bottom: 20px;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .open-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(66, 133, 244, 0.4);
+        }
+        .info-text {
+            font-size: 16px;
+            color: #888;
+            margin-bottom: 24px;
+        }
+        .security-notice {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+        .security-notice strong {
+            color: #1a1a1a;
+        }
+        .progress-container {
+            margin: 24px 0;
+            text-align: center;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            position: relative;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #4285f4, #34a853);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+        .progress-text {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            opacity: 0.9;
+        }
+        .progress-text.connected {
+            color: #34a853;
+            font-weight: 600;
+            opacity: 1;
+            transform: scale(1.05);
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #4285f4, #34a853);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(66, 133, 244, 0.3);
+            z-index: 10000;
+            animation: slideIn 0.3s ease;
+            display: none;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="gemini-container">
+        <div class="gemini-icon">🤖</div>
+        <h1 class="gemini-title">Gemini AI Assistant</h1>
+        <p class="gemini-description">
+            Your AI-powered assistant is ready to help with your eBay product listings, 
+            content optimization, and creative tasks.
+        </p>
+        
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">Connecting to Gemini AI...</div>
+        </div>
+        
+        <button class="open-btn" onclick="openGemini()">
+            🚀 Open Gemini AI Now
+        </button>
+        <p class="info-text">
+            Gemini will automatically open when connection is complete
+        </p>
+        <div class="security-notice">
+            <strong>Why a new tab?</strong><br>
+            Google's security policies prevent embedding Gemini in iframes. 
+            Opening in a new tab ensures full functionality and security.
+        </div>
+    </div>
+    
+    <div class="success-message" id="successMessage">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="font-size: 20px;">✅</div>
+            <div>
+                <div style="font-weight: 600; margin-bottom: 4px;">Gemini AI Opened!</div>
+                <div style="font-size: 14px; opacity: 0.9;">Check your new window</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openGemini() {
+            const geminiUrl = 'https://gemini.google.com/gem/1abcyIu6_hz3GZFz2V93mMrjH1guaj09W?usp=sharing';
+            const newTab = window.open(geminiUrl, '_blank');
+            
+            if (newTab) {
+                // Focus the new tab
+                newTab.focus();
+                
+                // Show success message
+                showSuccessMessage();
+            } else {
+                alert('Please allow popups for this site to open Gemini AI');
+            }
+        }
+        
+        // Animate progress bar on page load
+        function animateProgress() {
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            
+            // Fast and smooth animation sequence
+            setTimeout(() => {
+                progressFill.style.width = '20%';
+                progressText.textContent = 'Initializing...';
+            }, 100);
+            
+            setTimeout(() => {
+                progressFill.style.width = '40%';
+                progressText.textContent = 'Connecting...';
+            }, 400);
+            
+            setTimeout(() => {
+                progressFill.style.width = '65%';
+                progressText.textContent = 'Authenticating...';
+            }, 700);
+            
+            setTimeout(() => {
+                progressFill.style.width = '85%';
+                progressText.textContent = 'Loading AI...';
+            }, 1000);
+            
+            setTimeout(() => {
+                progressFill.style.width = '95%';
+                progressText.textContent = 'Finalizing...';
+            }, 1300);
+            
+            setTimeout(() => {
+                progressFill.style.width = '100%';
+                progressText.textContent = 'Gemini is connected ✅';
+                progressText.classList.add('connected');
+                
+                // Add a subtle pulse effect when complete
+                progressFill.style.animation = 'pulse 0.6s ease-in-out';
+                
+                // Automatically open Gemini in new tab after completion
+                setTimeout(() => {
+                    const geminiUrl = 'https://gemini.google.com/gem/1abcyIu6_hz3GZFz2V93mMrjH1guaj09W?usp=sharing';
+                    const newTab = window.open(geminiUrl, '_blank');
+                    
+                    if (newTab) {
+                        newTab.focus();
+                        showSuccessMessage();
+                    } else {
+                        alert('Please allow popups for this site to open Gemini AI');
+                    }
+                }, 800); // Wait 800ms after progress completion
+            }, 1600);
+        }
+        
+        // Start progress animation when page loads
+        window.addEventListener('load', animateProgress);
+        
+        function showSuccessMessage() {
+            const successMsg = document.getElementById('successMessage');
+            successMsg.style.display = 'block';
+            
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 4000);
+        }
+    </script>
+</body>
+</html>`;
+
+    // Load the simple Gemini interface
+    loadHtmlIntoFrame(geminiHtml);
+    setStatus('Gemini AI Assistant ready');
+  }
+
+  function openDownloadImageInBlankPage(){
+    // Create a simple, working download image interface
+    const downloadHtml = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Image Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .download-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid rgba(255, 107, 107, 0.1);
+        }
+        .download-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+        .download-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+        }
+        .download-description {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+        .open-btn {
+            background: linear-gradient(135deg, #ff6b6b, #ffa726);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(255, 107, 107, 0.3);
+            margin-bottom: 20px;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .open-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(255, 107, 107, 0.4);
+        }
+        .info-text {
+            font-size: 16px;
+            color: #888;
+            margin-bottom: 24px;
+        }
+        .tool-notice {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+        .tool-notice strong {
+            color: #1a1a1a;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #ff6b6b, #ffa726);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(255, 107, 107, 0.3);
+            z-index: 10000;
+            animation: slideIn 0.3s ease;
+            display: none;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="download-container">
+        <div class="download-icon">📥</div>
+        <h1 class="download-title">Download Image Tool</h1>
+        <p class="download-description">
+            Professional image download and editing tool for your eBay product listings. 
+            Optimize, resize, and enhance your product images.
+        </p>
+        <button class="open-btn" onclick="openDownloadTool()">
+            🚀 Open Download Tool
+        </button>
+        <p class="info-text">
+            The download tool will open within this application
+        </p>
+        <div class="tool-notice">
+            <strong>Professional Image Tool</strong><br>
+            Access advanced image editing, downloading, and optimization features 
+            specifically designed for eBay product listings. The tool will load directly here.
+        </div>
+    </div>
+    
+    <div class="success-message" id="successMessage">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="font-size: 20px;">✅</div>
+            <div>
+                <div style="font-weight: 600; margin-bottom: 4px;">Download Tool Opened!</div>
+                <div style="font-size: 14px; opacity: 0.9;">Check your new tab</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openDownloadTool() {
+            const downloadUrl = 'https://almutillc-amzedit.netlify.app/';
+            
+            // Create an iframe to load the download tool within the application
+            const iframe = document.createElement('iframe');
+            iframe.src = downloadUrl;
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.border = 'none';
+            iframe.style.background = 'white';
+            iframe.sandbox = 'allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation allow-modals allow-downloads';
+            iframe.allow = 'camera; microphone; geolocation; clipboard-read; clipboard-write; fullscreen';
+            
+            // Replace the current content with the iframe
+            const container = document.querySelector('.download-container').parentNode;
+            container.innerHTML = '';
+            container.appendChild(iframe);
+            
+            // Show success message
+            showSuccessMessage();
+        }
+        
+        function showSuccessMessage() {
+            const successMsg = document.getElementById('successMessage');
+            successMsg.style.display = 'block';
+            
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 4000);
+        }
+    </script>
+</body>
+</html>`;
+
+    // Load the simple download interface
+    loadHtmlIntoFrame(downloadHtml);
+    setStatus('Download Image Tool ready');
   }
 
   function download(filename, text){
@@ -407,6 +874,14 @@ window.EditorApp = (function(){
         alert(`Product URL updated to: ${url}`);
       }
     });
+    
+    document.getElementById('btn-gemini').addEventListener('click', ()=>{
+      openGeminiInBlankPage();
+    });
+    
+    document.getElementById('btn-download-image').addEventListener('click', ()=>{
+      openDownloadImageInBlankPage();
+    });
     const exportBtn = document.getElementById('btn-export-safe');
     if(exportBtn){ exportBtn.addEventListener('click', ()=>{
       const doc = state.frame.contentDocument;
@@ -579,7 +1054,58 @@ window.EditorApp = (function(){
     wireSanitize();
     wireHistory();
     wireAnalyzer();
+    wireKeyboardShortcuts();
     loadInitialTemplate();
+  }
+
+  function wireKeyboardShortcuts(){
+    document.addEventListener('keydown', (e) => {
+      // Ctrl/Cmd + S: Save
+      if((e.ctrlKey || e.metaKey) && e.key === 's'){
+        e.preventDefault();
+        document.getElementById('btn-save').click();
+      }
+      
+      // Ctrl/Cmd + C: Copy HTML
+      if((e.ctrlKey || e.metaKey) && e.key === 'c' && !e.target.matches('input, textarea')){
+        e.preventDefault();
+        document.getElementById('btn-copy').click();
+      }
+      
+      // Ctrl/Cmd + D: Download
+      if((e.ctrlKey || e.metaKey) && e.key === 'd'){
+        e.preventDefault();
+        document.getElementById('btn-download').click();
+      }
+      
+      // Ctrl/Cmd + Z: Undo (in editor)
+      if((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey){
+        if(state.frame && state.frame.contentDocument){
+          e.preventDefault();
+          state.frame.contentDocument.execCommand('undo');
+        }
+      }
+      
+      // Ctrl/Cmd + Y: Redo (in editor)
+      if((e.ctrlKey || e.metaKey) && (e.key === 'y' || (e.key === 'z' && e.shiftKey))){
+        if(state.frame && state.frame.contentDocument){
+          e.preventDefault();
+          state.frame.contentDocument.execCommand('redo');
+        }
+      }
+      
+      // Escape: Close modals
+      if(e.key === 'Escape'){
+        const modal = document.getElementById('code-modal');
+        if(modal && modal.open){
+          modal.close();
+        }
+        const overlay = document.getElementById('success-overlay');
+        if(overlay && overlay.classList.contains('show')){
+          overlay.classList.remove('show');
+        }
+      }
+    });
   }
 
   return { init };
