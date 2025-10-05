@@ -531,9 +531,58 @@ window.EditorApp = (function(){
         .tool-notice strong {
             color: #1a1a1a;
         }
+        .progress-container {
+            margin: 24px 0;
+            text-align: center;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            position: relative;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #ff6b6b, #ffa726);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+        .progress-text {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            opacity: 0.9;
+        }
+        .progress-text.connected {
+            color: #ff6b6b;
+            font-weight: 600;
+            opacity: 1;
+            transform: scale(1.05);
+        }
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
+        }
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
         }
         .success-message {
             position: fixed;
@@ -562,8 +611,16 @@ window.EditorApp = (function(){
             Professional image download and editing tool for your eBay product listings. 
             Optimize, resize, and enhance your product images.
         </p>
+        
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="downloadProgressFill"></div>
+            </div>
+            <div class="progress-text" id="downloadProgressText">Initializing download tool...</div>
+        </div>
+        
         <button class="open-btn" onclick="openDownloadTool()">
-            🚀 Open Download Tool
+            🚀 Open Download Tool Now
         </button>
         <p class="info-text">
             The download tool will open within this application
@@ -607,6 +664,55 @@ window.EditorApp = (function(){
             // Show success message
             showSuccessMessage();
         }
+        
+        // Animate download progress bar on page load
+        function animateDownloadProgress() {
+            const progressFill = document.getElementById('downloadProgressFill');
+            const progressText = document.getElementById('downloadProgressText');
+            
+            // Fast and smooth animation sequence
+            setTimeout(() => {
+                progressFill.style.width = '20%';
+                progressText.textContent = 'Initializing...';
+            }, 100);
+            
+            setTimeout(() => {
+                progressFill.style.width = '40%';
+                progressText.textContent = 'Loading tools...';
+            }, 400);
+            
+            setTimeout(() => {
+                progressFill.style.width = '65%';
+                progressText.textContent = 'Preparing interface...';
+            }, 700);
+            
+            setTimeout(() => {
+                progressFill.style.width = '85%';
+                progressText.textContent = 'Loading features...';
+            }, 1000);
+            
+            setTimeout(() => {
+                progressFill.style.width = '95%';
+                progressText.textContent = 'Finalizing...';
+            }, 1300);
+            
+            setTimeout(() => {
+                progressFill.style.width = '100%';
+                progressText.textContent = 'Download tool is ready ✅';
+                progressText.classList.add('connected');
+                
+                // Add a subtle pulse effect when complete
+                progressFill.style.animation = 'pulse 0.6s ease-in-out';
+                
+                // Automatically open download tool after completion
+                setTimeout(() => {
+                    openDownloadTool();
+                }, 800); // Wait 800ms after progress completion
+            }, 1600);
+        }
+        
+        // Start download progress animation when page loads
+        window.addEventListener('load', animateDownloadProgress);
         
         function showSuccessMessage() {
             const successMsg = document.getElementById('successMessage');
